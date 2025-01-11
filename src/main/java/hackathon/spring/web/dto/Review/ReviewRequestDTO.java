@@ -1,6 +1,7 @@
 package hackathon.spring.web.dto.Review;
 
 import hackathon.spring.validation.annotation.ExistUser;
+import hackathon.spring.validation.annotation.ValidLatLng;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -12,10 +13,16 @@ public class ReviewRequestDTO {
     public static class addReviewDTO {
         @ExistUser
         Long userId;
+
+        @ValidLatLng
         String latitude;
+
+        @ValidLatLng
         String longitude;
+
         @Size(min = 1, max = 25)
         String title;
+
         @Min(value = 0)
         @Max(value = 1)
         @NotNull
