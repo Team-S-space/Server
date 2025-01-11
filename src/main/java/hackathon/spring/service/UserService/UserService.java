@@ -29,7 +29,7 @@ public class UserService {
 
         if(user == null){
             throw new TempHandler(ErrorStatus.MEMBER_NOT_FOUND);
-        } else if (user.getPassword().equals(request.getPassword())) {
+        } else if (!user.getPassword().equals(request.getPassword())) {
             throw new TempHandler(ErrorStatus.MEMBER_PASSWORD_INCORRECT);
         } else {
             return user;
