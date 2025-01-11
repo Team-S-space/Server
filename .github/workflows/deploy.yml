@@ -21,8 +21,8 @@ jobs:
           port: 22
           script: |
             cd /home/ubuntu/Server
-            git pull origin main
             source ~/.bashrc
+            git pull origin main
 
       - name: build & run the code
         uses: appleboy/ssh-action@v1.2.0
