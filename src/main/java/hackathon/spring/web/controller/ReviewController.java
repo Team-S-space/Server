@@ -12,15 +12,16 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import hackathon.spring.web.dto.Review.ReviewRequestDTO;
 import hackathon.spring.web.dto.Review.ReviewResponseDTO;
 import jakarta.validation.Valid;
 
-
 @RestController
 @RequiredArgsConstructor
+@Validated
 @RequestMapping("/api/reviews")
 public class ReviewController {
 
@@ -63,7 +64,7 @@ public class ReviewController {
     @PostMapping(value = "", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     @Operation(summary = "리뷰 작성 API", description = "장소에 리뷰를 작성하는 API입니다.")
     public ApiResponse<ReviewResponseDTO.addReviewResultDTO> addReview(@Parameter(content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
-                                                                       @RequestPart("request") @Valid ReviewRequestDTO.addReviewDTO request,
+                                                                           @Valid @RequestPart("request") ReviewRequestDTO.addReviewDTO request,
                                                                        @RequestPart("reviewPicture") MultipartFile reviewPicture){
         Review newReview = reviewCommandService.addReview(request, reviewPicture);
         return ApiResponse.onSuccess(ReviewConverter.toAddReviewResultDTO(newReview));
