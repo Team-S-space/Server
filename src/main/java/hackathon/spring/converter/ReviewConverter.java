@@ -4,6 +4,7 @@ import hackathon.spring.domain.Review;
 import hackathon.spring.web.dto.ReviewResponseDTO;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 public class ReviewConverter {
@@ -19,6 +20,15 @@ public class ReviewConverter {
                 .sunriseTime(sunInfo.get("sunrise"))
                 .sunsetTime(sunInfo.get("sunset"))
                 .created_at(review.getCreatedAt())
+                .build();
+    }
+
+    public static ReviewResponseDTO.ReviewListDTO toReviewListDTO(List<ReviewResponseDTO.ReviewDetailDTO> reviews, boolean hasNext, Long lastId) {
+
+        return ReviewResponseDTO.ReviewListDTO.builder()
+                .reviews(reviews)
+                .hasNext(hasNext)
+                .lastId(lastId)
                 .build();
     }
 }
