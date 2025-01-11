@@ -31,7 +31,7 @@ public class LocationController {
         else if (sunEvent == 1) {
             sun = Sun.SUNSET;
         } else {
-            throw new TempHandler(ErrorStatus._BAD_REQUEST);
+            throw new TempHandler(ErrorStatus.SUN_EVENT_INCORRECT);
         }
 
         return ApiResponse.onSuccess(locationService.getLocationList(sun));
