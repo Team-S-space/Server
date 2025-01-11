@@ -32,7 +32,7 @@ public class ReviewConverter {
 
     public static Review toReview(ReviewRequestDTO.addReviewDTO request, String imageUrl) {
         Sun sun = null;
-        switch (request.getSun_event()){
+        switch (request.getSunEvent()){
             case 0:
                 sun = Sun.SUNRISE;
                 break;

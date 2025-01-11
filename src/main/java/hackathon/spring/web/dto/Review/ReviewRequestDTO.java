@@ -9,6 +9,6 @@ public class ReviewRequestDTO {
         String latitude;
         String longitude;
         String title;
-        Integer sun_event;
+        Integer sunEvent;
     }
 }
