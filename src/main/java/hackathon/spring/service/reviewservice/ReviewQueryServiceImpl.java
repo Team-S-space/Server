@@ -9,6 +9,7 @@ import hackathon.spring.web.dto.ReviewResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Document;
@@ -27,6 +28,7 @@ import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -58,6 +60,44 @@ public class ReviewQueryServiceImpl implements ReviewQueryService {
             log.error("일출/일몰 API 호출 실패: {}", e.getMessage());
             throw new GeneralException(ErrorStatus.EXTERNAL_API_ERROR);
         }
+    }
+
+    @Override
+    public ReviewResponseDTO.ReviewListDTO getReviewList(String region, Integer sunEvent, Long lastId, int limit) {
+        PageRequest pageRequest = PageRequest.of(0, limit + 1);
+        List<Review> reviews = reviewRepository.findAllByRegionWithSunEvent(
+                region, sunEvent, lastId, pageRequest);
+
+        return generateReviewListDTO(reviews, limit);
+    }
+
+    private ReviewResponseDTO.ReviewListDTO generateReviewListDTO(List<Review> reviews, int limit) {
+        boolean hasNext = reviews.size() > limit;
+        Long lastId = null;
+
+        if (hasNext) {
+            reviews = reviews.subList(0, limit);
+            lastId = reviews.get(reviews.size() - 1).getId();
+        }
+
+        List<ReviewResponseDTO.ReviewDetailDTO> reviewList = reviews
+                .stream()
+                .map(review -> {
+                    String location = extractCityName(review.getLocation().getAddress());
+                    String locdate = extractCurrentDay();
+                    try {
+                        String apiResponse = callRiseSetInfoApi(location, locdate);
+                        Map<String, LocalDateTime> sunInfo = parseSunriseSunsetFromXml(apiResponse, locdate);
+
+                        return ReviewConverter.toReviewDetailResultDTO(review, sunInfo);
+                    } catch (Exception e) {
+                        log.error("일출/일몰 API 호출 실패: {}", e.getMessage());
+                        throw new GeneralException(ErrorStatus.EXTERNAL_API_ERROR);
+                    }
+                })
+                .toList();
+
+        return ReviewConverter.toReviewListDTO(reviewList, hasNext, lastId);
     }
 
     private Map<String, LocalDateTime> parseSunriseSunsetFromXml(String xmlString, String date) throws Exception {
@@ -138,6 +178,19 @@ public class ReviewQueryServiceImpl implements ReviewQueryService {
     private String extractCityName(String address) {
         String[] parts = address.split(" ");
         for (String part : parts) {
+            // 특별시, 광역시, 특별자치시 등의 경우
+            if (part.contains("특별시") || part.contains("광역시") || part.contains("특별자치시")) {
+                if (part.contains("특별시")) {
+                    return part.replace("특별시", "");
+                }
+                if (part.contains("광역시")) {
+                    return part.replace("광역시", "");
+                }
+                if (part.contains("특별자치시")) {
+                    return part.replace("특별자치시", "");
+                }
+            }
+            // 일반 시의 경우
             if (part.endsWith("시")) {
                 return part.substring(0, part.length() - 1);
             }
