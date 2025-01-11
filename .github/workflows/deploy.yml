@@ -22,6 +22,7 @@ jobs:
           script: |
             cd /home/ubuntu/Server
             git pull origin main
+            cd ~
             source .bashrc
 
       - name: build & run the code
