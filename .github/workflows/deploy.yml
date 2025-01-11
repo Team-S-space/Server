@@ -35,6 +35,4 @@ jobs:
             cd /home/ubuntu/Server
             chmod +x ./gradlew
             ./gradlew clean build
-            pkill -f spring-0.0.1-SNAPSHOT.jar || true
             nohup java -jar build/libs/spring-0.0.1-SNAPSHOT.jar > /home/ubuntu/app.log 2>&1 &
-            pgrep -f spring-0.0.1-SNAPSHOT.jar && echo "Application is running"
