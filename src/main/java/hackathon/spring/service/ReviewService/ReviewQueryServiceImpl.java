@@ -1,11 +1,11 @@
-package hackathon.spring.service.reviewservice;
+package hackathon.spring.service.ReviewService;
 
 import hackathon.spring.apiPayload.code.status.ErrorStatus;
 import hackathon.spring.apiPayload.exception.GeneralException;
 import hackathon.spring.converter.ReviewConverter;
 import hackathon.spring.domain.Review;
 import hackathon.spring.repository.ReviewRepository;
-import hackathon.spring.web.dto.ReviewResponseDTO;
+import hackathon.spring.web.dto.Review.ReviewResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

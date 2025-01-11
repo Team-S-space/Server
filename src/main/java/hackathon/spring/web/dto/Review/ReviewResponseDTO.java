@@ -1,4 +1,4 @@
-package hackathon.spring.web.dto;
+package hackathon.spring.web.dto.Review;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import hackathon.spring.domain.enums.Sun;
@@ -12,15 +12,25 @@ import java.util.List;
 
 public class ReviewResponseDTO {
 
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class addReviewResultDTO {
+        Long reviewId;
+        LocalDateTime createdAt;
+    }
+
     @Getter
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
     public static class ReviewDetailDTO {
+        Long reviewId;
         String title;
         String address;
         String imageUrl;
-        Sun sunEvent;
+        Integer sunEvent;
         Boolean isAdmin;
 
         @JsonFormat(pattern = "HH:mm")
