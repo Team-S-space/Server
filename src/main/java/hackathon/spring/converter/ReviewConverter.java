@@ -6,16 +6,29 @@ import hackathon.spring.web.dto.Review.ReviewRequestDTO;
 import hackathon.spring.web.dto.Review.ReviewResponseDTO;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 public class ReviewConverter {
-    public static hackathon.spring.web.dto.ReviewResponseDTO.ReviewDetailDTO toReviewDetailResultDTO(Review review, Map<String, LocalDateTime> sunInfo) {
 
-        return hackathon.spring.web.dto.ReviewResponseDTO.ReviewDetailDTO.builder()
+    public static ReviewResponseDTO.ReviewDetailDTO toReviewDetailResultDTO(Review review, Map<String, LocalDateTime> sunInfo) {
+
+        Integer sun = null;
+        switch (review.getSunEvent()){
+            case SUNRISE:
+                sun = 0;
+                break;
+            case SUNSET:
+                sun = 1;
+                break;
+        }
+
+        return ReviewResponseDTO.ReviewDetailDTO.builder()
+                .reviewId(review.getId())
                 .title(review.getTitle())
                 .address(review.getLocation().getAddress())
                 .imageUrl(review.getImageUrl())
-                .sunEvent(review.getSunEvent())
+                .sunEvent(sun)
                 .isAdmin(review.getUser().getIsAdmin())
                 .sunriseTime(sunInfo.get("sunrise"))
                 .sunsetTime(sunInfo.get("sunset"))
@@ -45,6 +58,15 @@ public class ReviewConverter {
                 .title(request.getTitle())
                 .imageUrl(imageUrl)
                 .sunEvent(sun)
+                .build();
+    }
+
+    public static ReviewResponseDTO.ReviewListDTO toReviewListDTO(List<ReviewResponseDTO.ReviewDetailDTO> reviews, boolean hasNext, Long lastId) {
+
+        return ReviewResponseDTO.ReviewListDTO.builder()
+                .reviews(reviews)
+                .hasNext(hasNext)
+                .lastId(lastId)
                 .build();
     }
 }

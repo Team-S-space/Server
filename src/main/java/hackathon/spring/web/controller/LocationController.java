@@ -24,14 +24,13 @@ public class LocationController {
 
     @GetMapping("/{sunEvent}")
     @Operation(summary = "로그인 API")
-    public ApiResponse<List<LocationResponseDTO.getLocationDTO>> getLocationList(@PathVariable String sunEvent) {
+    public ApiResponse<List<LocationResponseDTO.getLocationDTO>> getLocationList(@PathVariable Integer sunEvent) {
         Sun sun;
-        if(sunEvent.equals("일출"))
+        if(sunEvent == 0)
             sun = Sun.SUNRISE;
-        else if (sunEvent.equals("일몰")) {
+        else if (sunEvent == 1) {
             sun = Sun.SUNSET;
-        }
-        else{
+        } else {
             throw new TempHandler(ErrorStatus._BAD_REQUEST);
         }
 
