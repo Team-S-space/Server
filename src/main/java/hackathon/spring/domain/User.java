@@ -23,10 +23,13 @@ public class User extends BaseEntity {
     private Long id;
 
     @Column(name = "user_id", columnDefinition = "varchar(20)")
-    private String user_id;
+    private String userId;
 
     @Column(name = "password", columnDefinition = "varchar(30)")
     private String password;
+
+    @Column(name = "is_admin", columnDefinition = "boolean")
+    private Boolean isAdmin;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Review> reviewList = new ArrayList<>();
