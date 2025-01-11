@@ -22,8 +22,7 @@ jobs:
           script: |
             cd /home/ubuntu/Server
             git pull origin main
-            cd ~
-            source .bashrc
+            source ~/.bashrc
 
       - name: build & run the code
         uses: appleboy/ssh-action@v1.2.0
@@ -37,5 +36,5 @@ jobs:
             chmod +x ./gradlew
             ./gradlew clean build
             pkill -f spring-0.0.1-SNAPSHOT.jar || true
-            cd build/libs/
-            nohup java -jar spring-0.0.1-SNAPSHOT.jar &
+            nohup java -jar build/libs/spring-0.0.1-SNAPSHOT.jar > /home/ubuntu/app.log 2>&1 &
+            pgrep -f spring-0.0.1-SNAPSHOT.jar && echo "Application is running"
