@@ -26,7 +26,7 @@ public class Review extends BaseEntity {
     @Column(name = "title", columnDefinition = "varchar(20)")
     private String title;
 
-    @Column(name = "image_url", columnDefinition = "varchar(20)")
+    @Column(name = "image_url", columnDefinition = "varchar(100)")
     private String imageUrl;
 
     @Enumerated(EnumType.STRING)
