@@ -8,10 +8,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/api/reviews")
 @RequiredArgsConstructor
@@ -31,5 +28,26 @@ public class ReviewController {
     public ApiResponse<ReviewResponseDTO.ReviewDetailDTO> getReviewDetail(@PathVariable Long reviewId) {
 
         return ApiResponse.onSuccess(reviewQueryService.getReview(reviewId));
+    }
+
+
+    @GetMapping("/")
+    @Operation(summary = "지역별 후기 조회 API", description = "지역을 입력 받고 지역별 후기를 조회하는 API입니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "OK, 성공"),
+    })
+    @Parameters({
+            @Parameter(name = "region", description = "필터링할 지역, query string"),
+            @Parameter(name = "sunEvent", description = "필터링할 일출,일몰 타입 (0: 전체, 1: 일출, 2: 일몰), query string"),
+            @Parameter(name = "lastId", description = "마지막으로 조회한 리뷰의 ID, query string"),
+            @Parameter(name = "limit", description = "페이징 위한 limit 값, query string"),
+    })
+    public ApiResponse<ReviewResponseDTO.ReviewListDTO> getReviewsByRegion(
+            @RequestParam(required = false) String region,
+            @RequestParam(required = false) Integer sunEvent,
+            @RequestParam(required = false, defaultValue = "0") Long lastId,
+            @RequestParam(defaultValue = "10") int limit
+    ) {
+        return ApiResponse.onSuccess(reviewQueryService.getReviewList(region, sunEvent, lastId, limit));
     }
 }
