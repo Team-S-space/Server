@@ -22,9 +22,17 @@ public enum ErrorStatus implements BaseErrorCode {
 
     //리뷰 관련 오류
     REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND,"REVIEW4001","리뷰를 찾을 수 없습니다."),
+    NO_MORE_REVIEW_DATA(HttpStatus.NOT_FOUND,"REVIEW4002","더 이상 조회할 리뷰가 없습니다."),
 
     //API 오류
     EXTERNAL_API_ERROR(HttpStatus.INTERNAL_SERVER_ERROR,"API4001", "일출, 일몰 API 호출에 실패했습니다."),
+
+    //지역 관련 오류
+    REGION_NOT_FOUND(HttpStatus.NOT_FOUND,"LOCATION4001","해당 지역은 존재하지 않는 지역입니다."),
+
+    //일출, 일몰 값 전달 시 잘못된 값 전달
+    SUN_EVENT_NOT_FOUND(HttpStatus.NOT_FOUND,"SUNEVENT4001","일출, 일몰 값을(0,1,2 중) 제대로 지정해주세요"),
+    SUN_EVENT_INCORRECT(HttpStatus.BAD_REQUEST,"SUNEVENT4002","잘못된 일출, 일몰 값이 전달되지 않았습니다."),
 
     TEMP_EXCEPTION(HttpStatus.BAD_REQUEST, "TEMP4001", "이거는 테스트");
 

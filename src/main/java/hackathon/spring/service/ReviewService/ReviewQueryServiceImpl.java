@@ -57,7 +57,7 @@ public class ReviewQueryServiceImpl implements ReviewQueryService {
 
             return ReviewConverter.toReviewDetailResultDTO(review, sunInfo);
         } catch (Exception e) {
-            log.error("일출/일몰 API 호출 실패: {}", e.getMessage());
+            log.error("일출/일몰 API 호출 실패1: {}", e.getMessage());
             throw new GeneralException(ErrorStatus.EXTERNAL_API_ERROR);
         }
     }
@@ -65,8 +65,7 @@ public class ReviewQueryServiceImpl implements ReviewQueryService {
     @Override
     public ReviewResponseDTO.ReviewListDTO getReviewList(String region, Integer sunEvent, Long lastId, int limit) {
         PageRequest pageRequest = PageRequest.of(0, limit + 1);
-        List<Review> reviews = reviewRepository.findAllByRegionWithSunEvent(
-                region, sunEvent, lastId, pageRequest);
+        List<Review> reviews = reviewRepository.findAllByRegionWithSunEvent(region, sunEvent, lastId, pageRequest);
 
         return generateReviewListDTO(reviews, limit);
     }
@@ -91,7 +90,7 @@ public class ReviewQueryServiceImpl implements ReviewQueryService {
 
                         return ReviewConverter.toReviewDetailResultDTO(review, sunInfo);
                     } catch (Exception e) {
-                        log.error("일출/일몰 API 호출 실패: {}", e.getMessage());
+                        log.error("일출/일몰 API 호출 실패2: {}", e.getMessage());
                         throw new GeneralException(ErrorStatus.EXTERNAL_API_ERROR);
                     }
                 })
@@ -121,7 +120,7 @@ public class ReviewQueryServiceImpl implements ReviewQueryService {
             result.put("sunrise", parseTimeToLocalDateTime(date, sunriseTime));
             result.put("sunset", parseTimeToLocalDateTime(date, sunsetTime));
         } else {
-            log.error("일출/일몰 정보를 찾을 수 없습니다.");
+            log.error("일출/일몰 정보를 찾을 수 없습니다.3");
             throw new GeneralException(ErrorStatus.EXTERNAL_API_ERROR);
         }
 
@@ -157,7 +156,7 @@ public class ReviewQueryServiceImpl implements ReviewQueryService {
             rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
         } else {
             rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-            throw new IOException("API 호출 실패: " + conn.getResponseCode());
+            throw new IOException("API 호출 실패4: " + conn.getResponseCode());
         }
 
         StringBuilder sb = new StringBuilder();
