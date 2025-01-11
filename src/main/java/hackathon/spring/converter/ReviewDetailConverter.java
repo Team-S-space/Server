@@ -1,17 +1,17 @@
 package hackathon.spring.converter;
 
 import hackathon.spring.domain.Review;
-import hackathon.spring.web.dto.ReviewDetailResponseDto;
+import hackathon.spring.web.dto.ReviewResponseDto;
 
 import java.time.LocalDateTime;
 import java.util.Map;
 
 public class ReviewDetailConverter {
 
-    public static ReviewDetailResponseDto toReviewDetailResponseDto(Review review, Map<String, LocalDateTime> sunInfo) {
+    public static ReviewResponseDto.ReviewDetailDto toReviewDetailResponseDto(Review review, Map<String, LocalDateTime> sunInfo) {
 
 
-        return ReviewDetailResponseDto.builder()
+        return ReviewResponseDto.ReviewDetailDto.builder()
                 .title(review.getTitle())
                 .address(review.getLocation().getAddress())
                 .imageUrl(review.getImage_url())

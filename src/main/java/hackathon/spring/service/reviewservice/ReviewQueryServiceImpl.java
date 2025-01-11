@@ -5,11 +5,13 @@ import hackathon.spring.apiPayload.exception.GeneralException;
 import hackathon.spring.converter.ReviewDetailConverter;
 import hackathon.spring.domain.Review;
 import hackathon.spring.repository.ReviewRepository;
-import hackathon.spring.web.dto.ReviewDetailResponseDto;
+import hackathon.spring.web.dto.ReviewResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -36,10 +38,12 @@ import java.util.Map;
 public class ReviewQueryServiceImpl implements ReviewQueryService {
 
     private final ReviewRepository reviewRepository;
-    private final String API_KEY = "6kxaYkjhPFHK0hCs5uo13I7wOefeecQ8S/bHVRKoQkItRxGxgWyV0ParKFVRjRUlmUXBjrBNm9dRES4iw4FBOA==";
+
+    @Value("${sunrise-sunset.key}")
+    private String API_KEY;
 
     @Override
-    public ReviewDetailResponseDto getReview(Long reviewId) {
+    public ReviewResponseDto.ReviewDetailDto getReview(Long reviewId) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new GeneralException(ErrorStatus.REVIEW_NOT_FOUND));
 

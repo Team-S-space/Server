@@ -2,7 +2,7 @@ package hackathon.spring.web.controller;
 
 import hackathon.spring.apiPayload.ApiResponse;
 import hackathon.spring.service.reviewservice.ReviewQueryService;
-import hackathon.spring.web.dto.ReviewDetailResponseDto;
+import hackathon.spring.web.dto.ReviewResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/reviews")
 @RequiredArgsConstructor
 @RestController
-public class ReviewDetailController {
+public class ReviewController {
 
     private final ReviewQueryService reviewQueryService;
 
@@ -28,7 +28,7 @@ public class ReviewDetailController {
     @Parameters({
             @Parameter(name = "reviewId", description = "리뷰 ID"),
     })
-    public ApiResponse<ReviewDetailResponseDto> getReviewDetail(@PathVariable Long reviewId) {
+    public ApiResponse<ReviewResponseDto.ReviewDetailDto> getReviewDetail(@PathVariable Long reviewId) {
 
         return ApiResponse.onSuccess(reviewQueryService.getReview(reviewId));
     }
