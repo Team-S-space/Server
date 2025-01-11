@@ -4,7 +4,7 @@ import hackathon.spring.apiPayload.code.status.ErrorStatus;
 import hackathon.spring.apiPayload.exception.handler.TempHandler;
 import hackathon.spring.domain.User;
 import hackathon.spring.repository.UserRepository;
-import hackathon.spring.web.dto.UserRequest;
+import hackathon.spring.web.dto.UserRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-    public User joinUser(UserRequest.JoinDto request){
+    public User joinUser(UserRequestDTO.JoinDTO request){
         User user = User.builder()
                 .userId(request.getUserId())
                 .password((request.getPassword()))
@@ -24,7 +24,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User loginUser(UserRequest.LoginDto request){
+    public User loginUser(UserRequestDTO.LoginDTO request){
         User user = userRepository.findByUserId(request.getUserId());
 
         if(user == null){

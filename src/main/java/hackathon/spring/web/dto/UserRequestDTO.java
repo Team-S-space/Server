@@ -3,9 +3,9 @@ package hackathon.spring.web.dto;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 
-public class UserRequest {
+public class UserRequestDTO {
     @Getter
-    public static class JoinDto{
+    public static class JoinDTO{
         @NotBlank
         String userId;
         @NotBlank
@@ -13,7 +13,7 @@ public class UserRequest {
     }
 
     @Getter
-    public static class LoginDto{
+    public static class LoginDTO{
         @NotBlank
         String userId;
         @NotBlank
