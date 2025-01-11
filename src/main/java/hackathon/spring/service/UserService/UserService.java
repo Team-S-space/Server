@@ -1,6 +1,7 @@
 package hackathon.spring.service.UserService;
 
 import hackathon.spring.apiPayload.code.status.ErrorStatus;
+import hackathon.spring.apiPayload.exception.GeneralException;
 import hackathon.spring.apiPayload.exception.handler.TempHandler;
 import hackathon.spring.domain.User;
 import hackathon.spring.repository.UserRepository;
@@ -15,6 +16,9 @@ import org.springframework.stereotype.Service;
 public class UserService {
     private final UserRepository userRepository;
     public User joinUser(UserRequestDTO.JoinDTO request){
+        if(userRepository.existsByUserId(request.getUserId())){
+            throw new GeneralException(ErrorStatus.USER_DUPLICATE);
+        }
         User user = User.builder()
                 .userId(request.getUserId())
                 .password((request.getPassword()))

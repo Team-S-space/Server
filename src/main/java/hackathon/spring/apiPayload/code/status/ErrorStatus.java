@@ -19,6 +19,7 @@ public enum ErrorStatus implements BaseErrorCode {
     // user 관련 에러
     USER_NOT_FOUND(HttpStatus.BAD_REQUEST, "USER4001", "사용자가 없습니다."),
     USER_PASSWORD_INCORRECT(HttpStatus.BAD_REQUEST, "USER4002", "비밀번호가 틀렸습니다."),
+    USER_DUPLICATE(HttpStatus.BAD_REQUEST, "USER4003", "이미 존재하는 아이디입니다."),
 
     //리뷰 관련 오류
     REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND,"REVIEW4001","리뷰를 찾을 수 없습니다."),
