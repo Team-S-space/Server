@@ -1,7 +1,7 @@
 package hackathon.spring.service.reviewservice;
 
-import hackathon.spring.web.dto.ReviewResponseDto;
+import hackathon.spring.web.dto.ReviewResponseDTO;
 
 public interface ReviewQueryService {
-    ReviewResponseDto.ReviewDetailDto getReview(Long reviewId);
+    ReviewResponseDTO.ReviewDetailDTO getReview(Long reviewId);
 }

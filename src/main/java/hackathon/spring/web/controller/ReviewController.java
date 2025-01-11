@@ -2,7 +2,7 @@ package hackathon.spring.web.controller;
 
 import hackathon.spring.apiPayload.ApiResponse;
 import hackathon.spring.service.reviewservice.ReviewQueryService;
-import hackathon.spring.web.dto.ReviewResponseDto;
+import hackathon.spring.web.dto.ReviewResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -28,7 +28,7 @@ public class ReviewController {
     @Parameters({
             @Parameter(name = "reviewId", description = "리뷰 ID"),
     })
-    public ApiResponse<ReviewResponseDto.ReviewDetailDto> getReviewDetail(@PathVariable Long reviewId) {
+    public ApiResponse<ReviewResponseDTO.ReviewDetailDTO> getReviewDetail(@PathVariable Long reviewId) {
 
         return ApiResponse.onSuccess(reviewQueryService.getReview(reviewId));
     }

@@ -2,16 +2,15 @@ package hackathon.spring.service.reviewservice;
 
 import hackathon.spring.apiPayload.code.status.ErrorStatus;
 import hackathon.spring.apiPayload.exception.GeneralException;
-import hackathon.spring.converter.ReviewDetailConverter;
+import hackathon.spring.converter.ReviewConverter;
 import hackathon.spring.domain.Review;
 import hackathon.spring.repository.ReviewRepository;
-import hackathon.spring.web.dto.ReviewResponseDto;
+import hackathon.spring.web.dto.ReviewResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -43,7 +42,7 @@ public class ReviewQueryServiceImpl implements ReviewQueryService {
     private String API_KEY;
 
     @Override
-    public ReviewResponseDto.ReviewDetailDto getReview(Long reviewId) {
+    public ReviewResponseDTO.ReviewDetailDTO getReview(Long reviewId) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new GeneralException(ErrorStatus.REVIEW_NOT_FOUND));
 
@@ -54,7 +53,7 @@ public class ReviewQueryServiceImpl implements ReviewQueryService {
             String apiResponse = callRiseSetInfoApi(location, locdate);
             Map<String, LocalDateTime> sunInfo = parseSunriseSunsetFromXml(apiResponse, locdate);
 
-            return ReviewDetailConverter.toReviewDetailResponseDto(review, sunInfo);
+            return ReviewConverter.toReviewDetailResultDTO(review, sunInfo);
         } catch (Exception e) {
             log.error("일출/일몰 API 호출 실패: {}", e.getMessage());
             throw new GeneralException(ErrorStatus.EXTERNAL_API_ERROR);

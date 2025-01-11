@@ -9,13 +9,13 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-public class ReviewResponseDto {
+public class ReviewResponseDTO {
 
     @Getter
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
-    public static class ReviewDetailDto {
+    public static class ReviewDetailDTO {
         String title;
         String address;
         String imageUrl;
