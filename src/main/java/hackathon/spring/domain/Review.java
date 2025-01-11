@@ -23,7 +23,7 @@ public class Review extends BaseEntity {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "title", columnDefinition = "varchar(20)")
+    @Column(name = "title", columnDefinition = "varchar(25)")
     private String title;
 
     @Column(name = "image_url", columnDefinition = "varchar(100)")

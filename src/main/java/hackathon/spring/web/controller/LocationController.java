@@ -23,7 +23,7 @@ public class LocationController {
     private final LocationService locationService;
 
     @GetMapping("/{sunEvent}")
-    @Operation(summary = "로그인 API")
+    @Operation(summary = "일출, 일몰 명소 조회 API")
     public ApiResponse<List<LocationResponseDTO.getLocationDTO>> getLocationList(@PathVariable Integer sunEvent) {
         Sun sun;
         if(sunEvent == 0)
