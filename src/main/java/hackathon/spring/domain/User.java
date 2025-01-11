@@ -28,6 +28,9 @@ public class User extends BaseEntity {
     @Column(name = "password", columnDefinition = "varchar(30)")
     private String password;
 
+    @Column(name = "is_admin")
+    private Boolean isAdmin;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Review> reviewList = new ArrayList<>();
 }

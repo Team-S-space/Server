@@ -16,6 +16,12 @@ public enum ErrorStatus implements BaseErrorCode {
     _UNAUTHORIZED(HttpStatus.UNAUTHORIZED,"COMMON401","인증이 필요합니다."),
     _FORBIDDEN(HttpStatus.FORBIDDEN, "COMMON403", "금지된 요청입니다."),
 
+    //리뷰 관련 오류
+    REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND,"REVIEW4001","리뷰를 찾을 수 없습니다."),
+
+    //API 오류
+    EXTERNAL_API_ERROR(HttpStatus.INTERNAL_SERVER_ERROR,"API4001", "일출, 일몰 API 호출에 실패했습니다."),
+
     TEMP_EXCEPTION(HttpStatus.BAD_REQUEST, "TEMP4001", "이거는 테스트");
 
     private final HttpStatus httpStatus;
