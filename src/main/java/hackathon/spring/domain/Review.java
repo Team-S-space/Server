@@ -39,4 +39,15 @@ public class Review extends BaseEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id")
     private Location location;
+
+    public void setUser(User user) {
+        if(this.user != null)
+            this.user.getReviewList().remove(this);
+        this.user = user;
+        this.user.getReviewList().add(this);
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 }

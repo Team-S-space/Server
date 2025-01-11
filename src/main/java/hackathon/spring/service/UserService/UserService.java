@@ -28,9 +28,9 @@ public class UserService {
         User user = userRepository.findByUserId(request.getUserId());
 
         if(user == null){
-            throw new TempHandler(ErrorStatus.MEMBER_NOT_FOUND);
+            throw new TempHandler(ErrorStatus.USER_NOT_FOUND);
         } else if (!user.getPassword().equals(request.getPassword())) {
-            throw new TempHandler(ErrorStatus.MEMBER_PASSWORD_INCORRECT);
+            throw new TempHandler(ErrorStatus.USER_PASSWORD_INCORRECT);
         } else {
             return user;
         }

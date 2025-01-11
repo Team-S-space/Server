@@ -1,4 +1,4 @@
-package hackathon.spring.service.reviewservice;
+package hackathon.spring.service.ReviewService;
 
 import hackathon.spring.web.dto.ReviewResponseDTO;
 

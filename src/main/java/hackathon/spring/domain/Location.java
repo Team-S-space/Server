@@ -28,6 +28,6 @@ public class Location extends BaseEntity {
     @Column(name = "longitude", columnDefinition = "varchar(20)")
     private String longitude;
 
-    @Column(name = "address", columnDefinition = "varchar(20)")
+    @Column(name = "address", columnDefinition = "varchar(100)")
     private String address;
 }
