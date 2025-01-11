@@ -27,10 +27,10 @@ public class Review extends BaseEntity {
     private String title;
 
     @Column(name = "image_url", columnDefinition = "varchar(20)")
-    private String image_url;
+    private String imageUrl;
 
     @Enumerated(EnumType.STRING)
-    private Sun sun_event;
+    private Sun sunEvent;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
